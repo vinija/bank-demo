@@ -10,7 +10,7 @@ interface MainAreaProps {
   setSpreadsheet: (spreadsheet: Spreadsheet) => void;
 }
 
-const MainArea = ({ spreadsheet, setSpreadsheet }: MainAreaProps) => {
+const SingleSpreadsheet = ({ spreadsheet, setSpreadsheet }: MainAreaProps) => {
   useMakeCopilotReadable(
     "This is the current spreadsheet: " + JSON.stringify(spreadsheet)
   );
@@ -165,4 +165,4 @@ const MainArea = ({ spreadsheet, setSpreadsheet }: MainAreaProps) => {
   );
 };
 
-export default MainArea;
+export default SingleSpreadsheet;

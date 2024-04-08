@@ -3,7 +3,7 @@ import "@copilotkit/react-ui/styles.css";
 
 import React, { useState } from "react";
 import Sidebar from "./components/Sidebar";
-import MainArea from "./components/MainArea";
+import SingleSpreadsheet from "./components/SingleSpreadsheet";
 import {
   CopilotKit,
   useCopilotAction,
@@ -101,7 +101,7 @@ const Main = () => {
         selectedSpreadsheetIndex={selectedSpreadsheetIndex}
         setSelectedSpreadsheetIndex={setSelectedSpreadsheetIndex}
       />
-      <MainArea
+      <SingleSpreadsheet
         spreadsheet={spreadsheets[selectedSpreadsheetIndex]}
         setSpreadsheet={(spreadsheet) => {
           setSpreadsheets((prev) => {
