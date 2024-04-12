@@ -16,8 +16,8 @@ const SingleSpreadsheet = ({ spreadsheet, setSpreadsheet }: MainAreaProps) => {
   );
 
   useCopilotAction({
-    name: "updateSpreadsheet",
-    description: "Update the current spreadsheet",
+    name: "overrideSpreadsheet",
+    description: "override the current spreadsheet",
     parameters: [
       {
         name: "rows",
@@ -45,9 +45,16 @@ const SingleSpreadsheet = ({ spreadsheet, setSpreadsheet }: MainAreaProps) => {
         required: false,
       },
     ],
-    render: "Updating spreadsheet...",
+    render: (params) => {
+      return (
+        <div>
+          overrideSpreadsheet
+          <pre>{JSON.stringify(params, null, 2)}</pre>
+        </div>
+      )
+    },
     handler: ({ rows, title }) => {
-      const data: Row[] = [];
+      const data: SpreadsheetRow[] = [];
       for (const row of rows || []) {
         const columns: Cell[] = [];
         for (const column of row.columns) {
@@ -93,9 +100,36 @@ const SingleSpreadsheet = ({ spreadsheet, setSpreadsheet }: MainAreaProps) => {
         required: false,
       },
     ],
-    render: "Updating spreadsheet...",
+    render: (renderProps) => {
+      const {rows, title,} = renderProps.args
+      const data: SpreadsheetRow[] = [];
+      for (const row of rows || []) {
+        const columns: Cell[] = [];
+        for (const column of row.columns || []) {
+          columns.push({ value: column.value });
+        }
+        data.push(columns);
+      }
+      const updatedSpreadsheet: Spreadsheet = {
+        title: title || spreadsheet.title,
+        data,
+      };
+
+      return (
+        <div>
+          appendToSpreadsheet
+
+          <Spreadsheet
+            data={updatedSpreadsheet.data}
+          />
+
+          <pre>{JSON.stringify(renderProps, null, 2)}</pre>
+
+        </div>
+      );
+    },
     handler: ({ rows, title }) => {
-      const data: Row[] = [];
+      const data: SpreadsheetRow[] = [];
       for (const row of rows || []) {
         const columns: Cell[] = [];
         for (const column of row.columns) {
@@ -149,7 +183,7 @@ const SingleSpreadsheet = ({ spreadsheet, setSpreadsheet }: MainAreaProps) => {
         className="bg-blue-500 text-white rounded-lg w-8 h-8 mt-5 "
         onClick={() => {
           const numberOfColumns = spreadsheet.data[0].length;
-          const newRow: Row = [];
+          const newRow: SpreadsheetRow = [];
           for (let i = 0; i < numberOfColumns; i++) {
             newRow.push({ value: "" });
           }

@@ -2,9 +2,9 @@ interface Cell {
   value: string;
 }
 
-type Row = Cell[];
+type SpreadsheetRow = Cell[];
 
 interface Spreadsheet {
   title: string;
-  data: Row[];
+  data: SpreadsheetRow[];
 }

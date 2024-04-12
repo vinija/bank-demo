@@ -75,7 +75,7 @@ const Main = () => {
     ],
     render: "Creating spreadsheet...",
     handler: ({ rows, title }) => {
-      const data: Row[] = [];
+      const data: SpreadsheetRow[] = [];
       for (const row of rows || []) {
         const columns: Cell[] = [];
         for (const column of row.columns) {
