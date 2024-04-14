@@ -4,10 +4,12 @@ import {
 } from "@copilotkit/react-core";
 import React from "react";
 import Spreadsheet from "react-spreadsheet";
+import { canonicalSpreadsheetData } from "../utils/canonicalSpreadsheetData";
+import { SpreadsheetData, SpreadsheetRow } from "../types";
 
 interface MainAreaProps {
-  spreadsheet: Spreadsheet;
-  setSpreadsheet: (spreadsheet: Spreadsheet) => void;
+  spreadsheet: SpreadsheetData;
+  setSpreadsheet: (spreadsheet: SpreadsheetData) => void;
 }
 
 const SingleSpreadsheet = ({ spreadsheet, setSpreadsheet }: MainAreaProps) => {
@@ -25,9 +27,9 @@ const SingleSpreadsheet = ({ spreadsheet, setSpreadsheet }: MainAreaProps) => {
         description: "The rows of the spreadsheet",
         attributes: [
           {
-            name: "columns",
+            name: "cells",
             type: "object[]",
-            description: "The columns of the row",
+            description: "The cells of the row",
             attributes: [
               {
                 name: "value",
@@ -54,17 +56,10 @@ const SingleSpreadsheet = ({ spreadsheet, setSpreadsheet }: MainAreaProps) => {
       )
     },
     handler: ({ rows, title }) => {
-      const data: SpreadsheetRow[] = [];
-      for (const row of rows || []) {
-        const columns: Cell[] = [];
-        for (const column of row.columns) {
-          columns.push({ value: column.value });
-        }
-        data.push(columns);
-      }
-      const updatedSpreadsheet: Spreadsheet = {
+      const canonicalRows = canonicalSpreadsheetData(rows);
+      const updatedSpreadsheet: SpreadsheetData = {
         title: title || spreadsheet.title,
-        data,
+        rows: canonicalRows,
       };
       setSpreadsheet(updatedSpreadsheet);
     },
@@ -80,9 +75,9 @@ const SingleSpreadsheet = ({ spreadsheet, setSpreadsheet }: MainAreaProps) => {
         description: "The new rows of the spreadsheet",
         attributes: [
           {
-            name: "columns",
+            name: "cells",
             type: "object[]",
-            description: "The columns of the row",
+            description: "The cells of the row",
             attributes: [
               {
                 name: "value",
@@ -101,18 +96,11 @@ const SingleSpreadsheet = ({ spreadsheet, setSpreadsheet }: MainAreaProps) => {
       },
     ],
     render: (renderProps) => {
-      const {rows, title,} = renderProps.args
-      const data: SpreadsheetRow[] = [];
-      for (const row of rows || []) {
-        const columns: Cell[] = [];
-        for (const column of row.columns || []) {
-          columns.push({ value: column.value });
-        }
-        data.push(columns);
-      }
-      const updatedSpreadsheet: Spreadsheet = {
+      const { rows, title } = renderProps.args
+      const canonicalRows = canonicalSpreadsheetData(rows);
+      const updatedSpreadsheet: SpreadsheetData = {
         title: title || spreadsheet.title,
-        data,
+        rows: canonicalRows,
       };
 
       return (
@@ -120,7 +108,7 @@ const SingleSpreadsheet = ({ spreadsheet, setSpreadsheet }: MainAreaProps) => {
           appendToSpreadsheet
 
           <Spreadsheet
-            data={updatedSpreadsheet.data}
+            data={updatedSpreadsheet.rows}
           />
 
           <pre>{JSON.stringify(renderProps, null, 2)}</pre>
@@ -129,17 +117,10 @@ const SingleSpreadsheet = ({ spreadsheet, setSpreadsheet }: MainAreaProps) => {
       );
     },
     handler: ({ rows, title }) => {
-      const data: SpreadsheetRow[] = [];
-      for (const row of rows || []) {
-        const columns: Cell[] = [];
-        for (const column of row.columns) {
-          columns.push({ value: column.value });
-        }
-        data.push(columns);
-      }
-      const updatedSpreadsheet: Spreadsheet = {
+      const canonicalRows = canonicalSpreadsheetData(rows);
+      const updatedSpreadsheet: SpreadsheetData = {
         title: title || spreadsheet.title,
-        data: [...spreadsheet.data, ...data],
+        rows: [...spreadsheet.rows, ...canonicalRows],
       };
       setSpreadsheet(updatedSpreadsheet);
     },
@@ -157,22 +138,23 @@ const SingleSpreadsheet = ({ spreadsheet, setSpreadsheet }: MainAreaProps) => {
       />
       <div className="flex items-start">
         <Spreadsheet
-          data={spreadsheet.data}
+          data={spreadsheet.rows}
           onChange={(data) => {
             console.log("data", data);
-            setSpreadsheet({ ...spreadsheet, data: data as any });
+            setSpreadsheet({ ...spreadsheet, rows: data as any });
           }}
         />
         <button
           className="bg-blue-500 text-white rounded-lg ml-6 w-8 h-8 mt-0.5"
           onClick={() => {
-            const spreadsheetData = [...spreadsheet.data];
-            for (let i = 0; i < spreadsheet.data.length; i++) {
-              spreadsheet.data[i].push({ value: "" });
+            // add an empty cell to each row
+            const spreadsheetRows = [...spreadsheet.rows];
+            for (let i = 0; i < spreadsheet.rows.length; i++) {
+              spreadsheet.rows[i].push({ value: "" });
             }
             setSpreadsheet({
               ...spreadsheet,
-              data: spreadsheetData,
+              rows: spreadsheetRows,
             });
           }}
         >
@@ -182,14 +164,14 @@ const SingleSpreadsheet = ({ spreadsheet, setSpreadsheet }: MainAreaProps) => {
       <button
         className="bg-blue-500 text-white rounded-lg w-8 h-8 mt-5 "
         onClick={() => {
-          const numberOfColumns = spreadsheet.data[0].length;
+          const numberOfColumns = spreadsheet.rows[0].length;
           const newRow: SpreadsheetRow = [];
           for (let i = 0; i < numberOfColumns; i++) {
             newRow.push({ value: "" });
           }
           setSpreadsheet({
             ...spreadsheet,
-            data: [...spreadsheet.data, newRow],
+            rows: [...spreadsheet.rows, newRow],
           });
         }}
       >

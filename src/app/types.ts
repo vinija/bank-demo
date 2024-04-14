@@ -1,10 +1,10 @@
-interface Cell {
+export interface Cell {
   value: string;
 }
 
-type SpreadsheetRow = Cell[];
+export type SpreadsheetRow = Cell[];
 
-interface Spreadsheet {
+export interface SpreadsheetData {
   title: string;
-  data: SpreadsheetRow[];
+  rows: SpreadsheetRow[];
 }

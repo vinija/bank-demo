@@ -1,7 +1,8 @@
 import React from "react";
+import { SpreadsheetData } from "../types";
 
 interface SidebarProps {
-  spreadsheets: Spreadsheet[];
+  spreadsheets: SpreadsheetData[];
   selectedSpreadsheetIndex: number;
   setSelectedSpreadsheetIndex: (index: number) => void;
 }

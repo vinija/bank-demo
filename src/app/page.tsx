@@ -11,6 +11,8 @@ import {
 } from "@copilotkit/react-core";
 import { CopilotSidebar } from "@copilotkit/react-ui";
 import { INSTRUCTIONS } from "./instructions";
+import { canonicalSpreadsheetData } from "./utils/canonicalSpreadsheetData";
+import { SpreadsheetData } from "./types";
 
 const HomePage = () => {
   return (
@@ -30,10 +32,10 @@ const HomePage = () => {
 };
 
 const Main = () => {
-  const [spreadsheets, setSpreadsheets] = React.useState<Spreadsheet[]>([
+  const [spreadsheets, setSpreadsheets] = React.useState<SpreadsheetData[]>([
     {
       title: "Spreadsheet 1",
-      data: [
+      rows: [
         [{ value: "" }, { value: "" }, { value: "" }],
         [{ value: "" }, { value: "" }, { value: "" }],
         [{ value: "" }, { value: "" }, { value: "" }],
@@ -53,9 +55,9 @@ const Main = () => {
         description: "The rows of the spreadsheet",
         attributes: [
           {
-            name: "columns",
+            name: "cells",
             type: "object[]",
-            description: "The columns of the row",
+            description: "The cells of the row",
             attributes: [
               {
                 name: "value",
@@ -75,17 +77,10 @@ const Main = () => {
     ],
     render: "Creating spreadsheet...",
     handler: ({ rows, title }) => {
-      const data: SpreadsheetRow[] = [];
-      for (const row of rows || []) {
-        const columns: Cell[] = [];
-        for (const column of row.columns) {
-          columns.push({ value: column.value });
-        }
-        data.push(columns);
-      }
-      const newSpreadsheet: Spreadsheet = {
+      const canonicalRows = canonicalSpreadsheetData(rows);
+      const newSpreadsheet: SpreadsheetData = {
         title: title,
-        data,
+        rows: canonicalRows,
       };
       setSpreadsheets((prev) => [...prev, newSpreadsheet]);
       setSelectedSpreadsheetIndex(spreadsheets.length);
