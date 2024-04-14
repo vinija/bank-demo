@@ -2,7 +2,7 @@ import {
   useCopilotAction,
   useMakeCopilotReadable,
 } from "@copilotkit/react-core";
-import React from "react";
+import React, { useState } from "react";
 import Spreadsheet from "react-spreadsheet";
 import { canonicalSpreadsheetData } from "../utils/canonicalSpreadsheetData";
 import { SpreadsheetData, SpreadsheetRow } from "../types";
@@ -47,11 +47,17 @@ const SingleSpreadsheet = ({ spreadsheet, setSpreadsheet }: MainAreaProps) => {
         required: false,
       },
     ],
-    render: (params) => {
+    render: (props) => {
+      const { rows } = props.args
+      const status = props.status;
+      const newRows = canonicalSpreadsheetData(rows);
+
       return (
         <div>
-          overrideSpreadsheet
-          <pre>{JSON.stringify(params, null, 2)}</pre>
+          <p>Status: {status}</p>
+          <Spreadsheet
+            data={newRows}
+          />
         </div>
       )
     },
@@ -88,38 +94,25 @@ const SingleSpreadsheet = ({ spreadsheet, setSpreadsheet }: MainAreaProps) => {
           },
         ],
       },
-      {
-        name: "title",
-        type: "string",
-        description: "The title of the spreadsheet",
-        required: false,
-      },
     ],
-    render: (renderProps) => {
-      const { rows, title } = renderProps.args
-      const canonicalRows = canonicalSpreadsheetData(rows);
-      const updatedSpreadsheet: SpreadsheetData = {
-        title: title || spreadsheet.title,
-        rows: canonicalRows,
-      };
+    render: (props) => {
+      const { rows } = props.args
+      const status = props.status;
+      const newRows = canonicalSpreadsheetData(rows);
 
       return (
         <div>
-          appendToSpreadsheet
-
+          <p>Status: {status}</p>
           <Spreadsheet
-            data={updatedSpreadsheet.rows}
+            data={newRows}
           />
-
-          <pre>{JSON.stringify(renderProps, null, 2)}</pre>
-
         </div>
-      );
+      )
     },
-    handler: ({ rows, title }) => {
+    handler: ({ rows }) => {
       const canonicalRows = canonicalSpreadsheetData(rows);
       const updatedSpreadsheet: SpreadsheetData = {
-        title: title || spreadsheet.title,
+        title: spreadsheet.title,
         rows: [...spreadsheet.rows, ...canonicalRows],
       };
       setSpreadsheet(updatedSpreadsheet);
