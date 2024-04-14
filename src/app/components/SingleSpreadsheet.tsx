@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import Spreadsheet from "react-spreadsheet";
 import { canonicalSpreadsheetData } from "../utils/canonicalSpreadsheetData";
 import { SpreadsheetData, SpreadsheetRow } from "../types";
+import { PreviewSpreadsheetChanges } from "./PreviewSpreadsheetChanges";
 
 interface MainAreaProps {
   spreadsheet: SpreadsheetData;
@@ -18,8 +19,8 @@ const SingleSpreadsheet = ({ spreadsheet, setSpreadsheet }: MainAreaProps) => {
   );
 
   useCopilotAction({
-    name: "overrideSpreadsheet",
-    description: "override the current spreadsheet",
+    name: "suggestSpreadsheetOverride",
+    description: "Suggest an override of the current spreadsheet",
     parameters: [
       {
         name: "rows",
@@ -49,25 +50,26 @@ const SingleSpreadsheet = ({ spreadsheet, setSpreadsheet }: MainAreaProps) => {
     ],
     render: (props) => {
       const { rows } = props.args
-      const status = props.status;
       const newRows = canonicalSpreadsheetData(rows);
 
       return (
-        <div>
-          <p>Status: {status}</p>
-          <Spreadsheet
-            data={newRows}
-          />
-        </div>
+        <PreviewSpreadsheetChanges 
+          preCommitTitle="Replace contents"
+          postCommitTitle="Changes committed"
+          newRows={newRows}
+          commit={(rows) => {
+            const updatedSpreadsheet: SpreadsheetData = {
+              title: spreadsheet.title,
+              rows: rows,
+            };
+            setSpreadsheet(updatedSpreadsheet);
+          }}
+        />
       )
     },
     handler: ({ rows, title }) => {
-      const canonicalRows = canonicalSpreadsheetData(rows);
-      const updatedSpreadsheet: SpreadsheetData = {
-        title: title || spreadsheet.title,
-        rows: canonicalRows,
-      };
-      setSpreadsheet(updatedSpreadsheet);
+      // Do nothing.
+      // The preview component will optionally handle committing the changes.
     },
   });
 
@@ -96,10 +98,9 @@ const SingleSpreadsheet = ({ spreadsheet, setSpreadsheet }: MainAreaProps) => {
       },
     ],
     render: (props) => {
-      const { rows } = props.args
       const status = props.status;
+      const { rows } = props.args
       const newRows = canonicalSpreadsheetData(rows);
-
       return (
         <div>
           <p>Status: {status}</p>
@@ -175,3 +176,5 @@ const SingleSpreadsheet = ({ spreadsheet, setSpreadsheet }: MainAreaProps) => {
 };
 
 export default SingleSpreadsheet;
+
+

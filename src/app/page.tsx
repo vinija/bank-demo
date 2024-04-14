@@ -13,6 +13,7 @@ import { CopilotSidebar } from "@copilotkit/react-ui";
 import { INSTRUCTIONS } from "./instructions";
 import { canonicalSpreadsheetData } from "./utils/canonicalSpreadsheetData";
 import { SpreadsheetData } from "./types";
+import { PreviewSpreadsheetChanges } from "./components/PreviewSpreadsheetChanges";
 
 const HomePage = () => {
   return (
@@ -68,22 +69,35 @@ const Main = () => {
           },
         ],
       },
-
       {
         name: "title",
         type: "string",
         description: "The title of the spreadsheet",
       },
     ],
-    render: "Creating spreadsheet...",
+    render: (props) => {
+      const { rows, title } = props.args;
+      const newRows = canonicalSpreadsheetData(rows);
+
+      return (
+        <PreviewSpreadsheetChanges
+          preCommitTitle="Create spreadsheet"
+          postCommitTitle="Spreadsheet created"
+          newRows={newRows}
+          commit={ (rows) => {
+            const newSpreadsheet: SpreadsheetData = {
+              title: title || "Untitled Spreadsheet",
+              rows: rows,
+            };
+            setSpreadsheets((prev) => [...prev, newSpreadsheet]);
+            setSelectedSpreadsheetIndex(spreadsheets.length);
+          }}
+        />
+      );
+    },
     handler: ({ rows, title }) => {
-      const canonicalRows = canonicalSpreadsheetData(rows);
-      const newSpreadsheet: SpreadsheetData = {
-        title: title,
-        rows: canonicalRows,
-      };
-      setSpreadsheets((prev) => [...prev, newSpreadsheet]);
-      setSelectedSpreadsheetIndex(spreadsheets.length);
+      // Do nothing.
+      // The preview component will optionally handle committing the changes.
     },
   });
 
