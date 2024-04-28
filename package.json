@@ -9,10 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@copilotkit/backend": "^0.7.0",
-    "@copilotkit/react-core": "^0.23.0",
-    "@copilotkit/react-textarea": "^0.33.0",
-    "@copilotkit/react-ui": "^0.20.0",
+    "@copilotkit/backend": "0.9.0-multi-feature-usecopilotreadable.4",
+    "@copilotkit/react-core": "0.25.0-multi-feature-usecopilotreadable.4",
+    "@copilotkit/react-textarea": "0.35.0-multi-feature-usecopilotreadable.4",
+    "@copilotkit/react-ui": "0.22.0-multi-feature-usecopilotreadable.4",
     "@heroicons/react": "^2.1.3",
     "next": "14.1.4",
     "openai": "^4.32.1",
