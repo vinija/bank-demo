@@ -1,6 +1,6 @@
 import {
   useCopilotAction,
-  useMakeCopilotReadable,
+  useCopilotReadable,
 } from "@copilotkit/react-core";
 import React, { useState } from "react";
 import Spreadsheet from "react-spreadsheet";
@@ -14,9 +14,10 @@ interface MainAreaProps {
 }
 
 const SingleSpreadsheet = ({ spreadsheet, setSpreadsheet }: MainAreaProps) => {
-  useMakeCopilotReadable(
-    "This is the current spreadsheet: " + JSON.stringify(spreadsheet)
-  );
+  useCopilotReadable({
+    description: "The current spreadsheet",
+    value: spreadsheet,
+  })
 
   useCopilotAction({
     name: "suggestSpreadsheetOverride",

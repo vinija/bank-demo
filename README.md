@@ -31,7 +31,7 @@ TODO add details what to do as a user
 ## Zoom in on the CopilotKit code
   1. Look for `/api/copilotkit/route.ts` and `/api/copilotkit/tavily.ts` - for the research agent integrated into the spreadsheet
 
-  2. Look for `useMakeCopilotReadable` to see where frontend application context is being made accessible to the Copilot engine
+  2. Look for `useCopilotReadable` to see where frontend application context is being made accessible to the Copilot engine
 
   3. Search for `updateSpreadsheet`, `appendToSpreadsheet`, and `createSpreadsheet` to see application interaction hooks made available to agents.
 

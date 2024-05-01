@@ -7,7 +7,7 @@ import SingleSpreadsheet from "./components/SingleSpreadsheet";
 import {
   CopilotKit,
   useCopilotAction,
-  useMakeCopilotReadable,
+  useCopilotReadable
 } from "@copilotkit/react-core";
 import { CopilotSidebar } from "@copilotkit/react-ui";
 import { INSTRUCTIONS } from "./instructions";
@@ -101,7 +101,10 @@ const Main = () => {
     },
   });
 
-  useMakeCopilotReadable("Todays date is: " + new Date().toLocaleDateString());
+  useCopilotReadable({
+    description:"Today's date",
+    value: new Date().toLocaleDateString()
+  })
 
   return (
     <div className="flex">
