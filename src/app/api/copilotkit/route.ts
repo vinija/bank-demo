@@ -1,23 +1,21 @@
 import { CopilotBackend, OpenAIAdapter } from "@copilotkit/backend";
 import { Action } from "@copilotkit/shared";
-import { research } from "./tavily";
+import { researchWithLangGraph } from "./research";
 
 const researchAction: Action<any> = {
   name: "research",
-  description: "Call this function to conduct research on a certain query.",
+  description:
+    "Call this function to conduct research on a certain topic. Respect other notes about when to call this function",
   parameters: [
     {
-      name: "query",
+      name: "topic",
       type: "string",
-      description:
-        "The query for doing research. 5 characters or longer. Might be multiple words",
+      description: "The topic to research. 5 characters or longer.",
     },
   ],
-  handler: async ({ query }) => {
-    console.log("Research query: ", query);
-    const result = await research(query);
-    console.log("Research result: ", result);
-    return result;
+  handler: async ({ topic }) => {
+    console.log("Researching topic: ", topic);
+    return await researchWithLangGraph(topic);
   },
 };
 
@@ -30,7 +28,5 @@ export async function POST(req: Request): Promise<Response> {
     actions: actions,
   });
 
-  const openaiModel = process.env["OPENAI_MODEL"];
-
-  return copilotKit.response(req, new OpenAIAdapter({ model: openaiModel }));
+  return copilotKit.response(req, new OpenAIAdapter());
 }
