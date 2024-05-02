@@ -1,4 +1,4 @@
-import { CopilotBackend, OpenAIAdapter } from "@copilotkit/backend";
+import { CopilotRuntime, OpenAIAdapter } from "@copilotkit/backend";
 import { Action } from "@copilotkit/shared";
 import { researchWithLangGraph } from "./research";
 
@@ -24,7 +24,7 @@ export async function POST(req: Request): Promise<Response> {
   if (process.env["TAVILY_API_KEY"]) {
     actions.push(researchAction);
   }
-  const copilotKit = new CopilotBackend({
+  const copilotKit = new CopilotRuntime({
     actions: actions,
   });
 
