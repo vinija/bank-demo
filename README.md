@@ -1,5 +1,11 @@
 This is a demo that showcases using CopilotKit to build a PowerPoint like web app.
 
+## Deploy with Vercel
+
+Click the button below to deploy this project to Vercel.
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FCopilotKit%2Fspreadsheet-demo&env=OPENAI_API_KEY&envDescription=Your%20OpenAI%20API%20Key&project-name=copilotkit-spreadsheet-demo&repository-name=copilotkit-spreadsheet-demo)
+
 ## Getting Started
 
 ### 1. install the needed package:
@@ -24,18 +30,17 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-
 ### 4. Use the Copilot
+
 TODO add details what to do as a user
 
 ## Zoom in on the CopilotKit code
-  1. Look for `/api/copilotkit/route.ts` and `/api/copilotkit/tavily.ts` - for the research agent integrated into the spreadsheet
 
-  2. Look for `useCopilotReadable` to see where frontend application context is being made accessible to the Copilot engine
+1. Look for `/api/copilotkit/route.ts` and `/api/copilotkit/tavily.ts` - for the research agent integrated into the spreadsheet
 
-  3. Search for `updateSpreadsheet`, `appendToSpreadsheet`, and `createSpreadsheet` to see application interaction hooks made available to agents.
+2. Look for `useCopilotReadable` to see where frontend application context is being made accessible to the Copilot engine
 
-
+3. Search for `updateSpreadsheet`, `appendToSpreadsheet`, and `createSpreadsheet` to see application interaction hooks made available to agents.
 
 ## Learn More
 
