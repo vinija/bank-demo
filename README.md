@@ -4,7 +4,7 @@ This is a demo that showcases using CopilotKit to build a PowerPoint like web ap
 
 Click the button below to deploy this project to Vercel.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FCopilotKit%2Fspreadsheet-demo&env=OPENAI_API_KEY&envDescription=Your%20OpenAI%20API%20Key&project-name=copilotkit-spreadsheet-demo&repository-name=copilotkit-spreadsheet-demo)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FCopilotKit%2Fspreadsheet-demo&env=OPENAI_API_KEY&project-name=copilotkit-spreadsheet-demo&repository-name=copilotkit-spreadsheet-demo)
 
 ## Getting Started
 
