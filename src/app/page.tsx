@@ -7,7 +7,7 @@ import SingleSpreadsheet from "./components/SingleSpreadsheet";
 import {
   CopilotKit,
   useCopilotAction,
-  useCopilotReadable
+  useCopilotReadable,
 } from "@copilotkit/react-core";
 import { CopilotSidebar } from "@copilotkit/react-ui";
 import { INSTRUCTIONS } from "./instructions";
@@ -17,7 +17,11 @@ import { PreviewSpreadsheetChanges } from "./components/PreviewSpreadsheetChange
 
 const HomePage = () => {
   return (
-    <CopilotKit url="/api/copilotkit">
+    <CopilotKit
+      publicApiKey={process.env.NEXT_PUBLIC_COPILOT_CLOUD_API_KEY}
+      // Alternatively, you can use runtimeUrl to host your own CopilotKit Runtime
+      // runtimeUrl="/api/copilotkit"
+    >
       <CopilotSidebar
         instructions={INSTRUCTIONS}
         labels={{
@@ -84,7 +88,7 @@ const Main = () => {
           preCommitTitle="Create spreadsheet"
           postCommitTitle="Spreadsheet created"
           newRows={newRows}
-          commit={ (rows) => {
+          commit={(rows) => {
             const newSpreadsheet: SpreadsheetData = {
               title: title || "Untitled Spreadsheet",
               rows: rows,
@@ -102,9 +106,9 @@ const Main = () => {
   });
 
   useCopilotReadable({
-    description:"Today's date",
-    value: new Date().toLocaleDateString()
-  })
+    description: "Today's date",
+    value: new Date().toLocaleDateString(),
+  });
 
   return (
     <div className="flex">
