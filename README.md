@@ -4,7 +4,7 @@ This is a demo that showcases using CopilotKit to build a PowerPoint like web ap
 
 To deploy with Vercel, click the button below:
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FCopilotKit%2Fspreadsheet-demo&env=NEXT_PUBLIC_COPILOTKIT_API_KEY,TAVILY_API_KEY&envDescription=By%20setting%20the%20TAVILY_API_KEY%2C%20you%20control%20whether%20the%20web%20search%20capabilities%20are%20enabled.%20Set%20it%20to%20NONE%20to%20disable%20this%20feature.)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FCopilotKit%2Fspreadsheet-demo&env=NEXT_PUBLIC_COPILOTKIT_API_KEY,TAVILY_API_KEY&envDescription=By%20setting%20the%20TAVILY_API_KEY%2C%20you%20control%20whether%20the%20web%20search%20capabilities%20are%20enabled.%20Set%20it%20to%20NONE%20to%20disable%20this%20feature.&project-name=copilotkit-spreadsheet-demo&repository-name=copilotkit-spreadsheet-demo)
 
 ## Getting Started
 
