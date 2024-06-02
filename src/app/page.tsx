@@ -17,11 +17,7 @@ import { PreviewSpreadsheetChanges } from "./components/PreviewSpreadsheetChange
 
 const HomePage = () => {
   return (
-    <CopilotKit
-      publicApiKey={process.env.NEXT_PUBLIC_COPILOT_CLOUD_API_KEY}
-      // Alternatively, you can use runtimeUrl to host your own CopilotKit Runtime
-      // runtimeUrl="/api/copilotkit"
-    >
+    <CopilotKit runtimeUrl={process.env.NEXT_PUBLIC_COPILOTKIT_URL}>
       <CopilotSidebar
         instructions={INSTRUCTIONS}
         labels={{
@@ -37,7 +33,7 @@ const HomePage = () => {
 };
 
 const Main = () => {
-  const [spreadsheets, setSpreadsheets] = React.useState<SpreadsheetData[]>([
+  const [spreadsheets, setSpreadsheets] = useState<SpreadsheetData[]>([
     {
       title: "Spreadsheet 1",
       rows: [
@@ -52,7 +48,7 @@ const Main = () => {
 
   useCopilotAction({
     name: "createSpreadsheet",
-    description: "Create a new  spreadsheet",
+    description: "Create a new spreadsheet",
     parameters: [
       {
         name: "rows",
