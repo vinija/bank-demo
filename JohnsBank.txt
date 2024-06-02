@@ -1,0 +1,19 @@
+1. John starts with a checking account balance of $1,000. He transfers $500 from his checking account to his savings account, decreasing his checking balance to $500 and increasing his savings balance by $500.
+
+2. John receives his monthly salary of $3,000, which is directly deposited into his checking account, increasing his balance to $3,500.
+
+3. John pays his credit card bill of $250 using funds from his checking account, decreasing his checking balance to $3,250.
+
+4. John withdraws $100 from an ATM, which reduces his checking account balance to $3,150.
+
+5. John receives a $200 refund for a returned purchase, which is credited back to his credit card account, increasing his available credit by $200.
+
+6. John writes a check for $450 to pay for his rent, which decreases his checking account balance to $2,700 when the check is cashed.
+
+7. John transfers $150 to his friend via a mobile payment app, which debits $150 from his checking account, reducing his balance to $2,550, and credits $150 to his friend’s account.
+
+8. John receives a $50 birthday gift from his grandparents, which is credited to his savings account, increasing his balance by $50.
+
+9. John sets up an automatic monthly transfer of $200 from his checking account to his retirement fund, decreasing his checking balance to $2,350 and increasing his retirement fund balance by $200.
+
+10. John pays for his groceries with his debit card, which results in a $75 debit from his checking account, reducing his balance to $2,275.
